@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+	<head>
+		<title>用户登录</title>
+		<meta charset="utf-8">
+		<script>
+
+			function login(){
+
+				var $uname=uname.value;
+				var $upwd=upwd.value;
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+						if(xhr.readyState==4&&xhr.status==200){
+								var result=xhr.responseText;
+								if(result==1){
+									alert("登录成功");
+									location.href="index.html";
+								}else{
+									alert("登录失败");
+								}
+						}
+				}
+				xhr.open("get","/ds/v1/login/"+$uname+"&"+$upwd,true);
+				
+				xhr.send();
+			}
+			function show_uname(){
+				uname_msg.innerHTML="用户名为3-6位";
+			}
+			function check_uname(){
+				var $uname=uname.value;
+				if(!$uname){
+					uname_msg.innerHTML="用户名不能为空";
+
+				}
+				
+			}
+			function show_upwd(){
+				upwd_msg.innerHTML="密码为6-12位";
+			}
+			function check_upwd(){
+				$upwd=upwd.value;
+				if(!$upwd){
+					upwd_msg.innerHTML="密码不能为空";
+
+				}
+			}
+		</script>
+		<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing:border-box;
+		}
+		body{
+			width:100%;
+			height:100%;
+			background-color:#0ff;
+		}
+		img{width:100%;height:900px;position:relative;display:block;}
+		#table1{
+				background-color:#fff;
+				border:1px solid #ccc;
+				box-shadow:10px 10px 10px 10px #aaa;
+				border-radius:5px;
+				padding:50px;
+				position:absolute;
+				left:400px;
+				top:300px;
+				color:#000;
+			}
+			
+			button{
+				width:150px;
+				height:40px;
+				text-align:center;
+				width:80px;
+				height:30px;
+				display:block;
+				margin-top:30px;
+				background-color:#0ff;
+				border-radius:5px;
+			}
+			a{
+				text-decoration:none;
+				border-radius:5px;
+				margin-top:30px;
+				margin-left:15px;
+				background-color:#0ff;
+				text-align:center;
+				box-shadow:1px 1px 1px 1px #666;
+				width:80px;
+				height:26px;
+				color:#000;
+				display:block;
+				line-height:26px;
+				
+				font-size:14px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<img src="images/reg.jpg" alt="">
+	  <table id="table1" align="center">
+		  <tr>
+		<td><label for="uname">用户名：</label></td>
+		<td><input type="text" onfocus="show_uname()"  onblur="check_uname()" id="uname">
+			 <span id="uname_msg"></span></td>	
+		  </tr>
+			<tr>
+		<td><label for="upwd">密码：</label></td>
+		<td><input  onfocus="show_upwd()" onblur="check_upwd()" type="password" id="upwd">
+			 <span id="upwd_msg"></span></td>
+		</tr>
+		
+		
+	  <tr><td><button onclick="login()">登录</button></td>
+				<td><a href="01_reg.html">注册</a></td>
+		</tr>
+		</table>
+	</body>
+</html>

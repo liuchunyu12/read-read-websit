@@ -1,0 +1,419 @@
+<!doctype html>
+<html>
+	<head>
+		<title>搜索页面</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/header.css"/>
+		<link rel="stylesheet" href="css/search.css"/>
+	</head>
+	<body>
+		<div id="header">
+			<div id="header-a" class="text-muted">
+				<a href="02_login.html">登录</a>|<a href="01_reg.html">注册</a>
+				<a href="back_login.html">后台登录</a>
+			</div>
+
+			
+
+		</div>
+
+
+
+	<div id="header-search">
+		<div id="title">
+			<span>读</span>
+		</div>
+		<div id="search">
+		
+			<input id="name" type="text" placeholder="雪中悍刀行"/>
+			<a class="btn btn-danger" id="s_a" href="search.html">搜索</a>
+		
+	</div>
+		
+	</div>
+
+
+	<div id="header-daohang">
+		<div id="zhu">
+
+			<div id="zhu-daohang">
+				<ul>
+					<li><a href="index.html">首页</a></li>
+					<li><a href="shuku.html">书库</a></li>
+					<li><a href="wanben.html">完本</a></li>
+					<li><a href="mianfei.html">免费</a></li>
+
+				</ul>
+			</div>
+
+
+		</div>
+	</div>
+<div  id="mul">
+	<!-- <div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/1.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">雪中悍刀行</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">烽火戏诸侯</a> | <a class="text-muted" href="">奇幻玄幻</a> | 完结 | 4615729字</p>
+			<p>————开始收官中。</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：烽火戏诸侯 热血 玄幻 修真</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+	<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/2.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">雪中悍刀行之白马出凉州</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">七菊</a> | <a class="text-muted" href="">武侠仙侠</a> | 连载 | 9720字</p>
+			<p>走一路，瑟瑟白骨路，取一命，千里不愿行！</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：热血 异世 争霸 古典仙侠</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+	<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/3.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">雪行亭杂记</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">阮行年</a> | <a class="text-muted" href="">竞技同人</a> | 连载 | 12507字</p>
+			<p>本文算是《雪中悍刀行》的同人吧。在看过《雪中悍刀行》之后，渐渐萌生出写点什么的想法。</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：雪中悍刀行 同人 杂记</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+	<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/4.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">刺行</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">何惘千</a> | <a class="text-muted" href="">武侠仙侠</a> | 连载 |119890字</p>
+			<p>很多年前徐道来认为江湖便是快意恩仇，拔剑饮酒，如今境界全无方知江湖是念念不忘，必有回响。</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：古典仙侠 英雄无敌 雪中悍刀行 刺客</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+	<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/5.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">红尘问剑</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">山野草莽</a> | <a class="text-muted" href="">武侠仙侠</a> | 连载 | 431935字</p>
+			<p>执剑刺我，猛目睁、却敌无须拔刀。北雪霸道，独傲天宇下，谈铗惊潮。</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：争霸 武侠 雪中悍刀行 烽火戏诸侯 热血</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+	<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/6.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">大长恨歌</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">涂佛</a> | <a class="text-muted" href="">奇幻玄幻</a> | 连载 | 291586字</p>
+			<p>陆地世界，江湖十大巅峰陆地神仙：天下第一，霸主李龙象；第二，手持剑非剑，逍遥酒剑仙；第三，七十二座大雪连峰，寒江垂钓三千年，剑气纵横九万里，一剑霜寒十九州，寒江垂钓翁...</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：热血 仙侠武侠玄幻 无限流 雪中悍刀行</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+		<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/7.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">公子出关</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">北男</a> | <a class="text-muted" href="">武侠仙侠</a> | 完结 | 355332字</p>
+			<p>大央末年，国脉动荡，气运崩乱，江湖纷争，群雄并起。 西域的蓝皮美人魔想争这气运，一人一圣地的老和尚想争这气运，智力近妖的太平先生想争这气运…… 可这气运都被那浑不吝的曲经年...</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：文青 热血 雪中悍刀行 妖孽 玄侠</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div>
+		<div class="section1 row no-gutters">
+		<div class="col-2">
+			<img class="w-75 h-100 pl-5" src="images/search/8.png" alt=""/>
+		</div>
+		<div class="col-8 d-flex flex-column justify-content-around">
+			<a href="" class="h2 font-weight-normal">我还有把刀</a>
+			<p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">姬雪希</a> | <a class="text-muted" href="">奇幻玄幻</a> | 连载 | 3594字</p>
+			<p>讲道理这个比较重要，在下还没想好，还望各位老板原谅</p>
+			<p class="text-muted h6 font-weight-normal mt-3">关键词：穿越 异世 雪中悍刀行 北凉 宠物猫</p>
+		</div>
+		<div class="col-2">
+			<a class="px-3 text-white btn btn-danger" href="">书籍详情</a>
+			<a class="px-3 border border-secondary mt-2 btn btn-light" href="">加入书架</a>
+		</div>
+	</div> -->
+</div>
+<!-- <div class="ma">
+	<ul class="pagination mt-4 ml-5">
+		<li class="page-item ml-3">
+			<a class="page-link" href="search.html">1</a>
+		</li>
+		<li class="page-item ml-3">
+			<a class="page-link" href="">2</a>
+		</li>
+		<li class="page-item ml-3">
+			<a class="page-link" href="">3</a>
+		</li>
+		<li class="page-item ml-3">
+			<a class="page-link" href="">4</a>
+		</li>
+		<li class="page-item ml-3">
+			<a class="page-link" href="">5</a>
+		</li>
+	</ul>
+</div> -->
+<div style="display:flex;margin-right:10px;margin-top:10px;">
+	<button id="shang" onclick="shang()">上一页</button>
+	<div id="fan" style="display:flex;margin-left:10px;margin-right:10px;">
+
+	</div>
+	<button id="xia" onclick="xia()">下一页</button>
+</div>
+
+	<div id="footer">
+		<span>上海网警提示：网络刷单是违法 切莫轻信有返利，网上交友套路多 卖惨要钱需当心，电子红包莫轻点 个人信息勿填写，仿冒客服来行骗 官方核实最重要，招工诈骗有套路 预交费用需谨慎，低价充值莫轻信 莫因游戏陷套路，连接WIFI要规范 确认安全再连接，抢购车票有章法 确认订单再付款，白条赊购慎使用 提升额度莫轻信，网购预付有风险 正规渠道很重要 如网民接到962110电话，请立即接听。</span>
+	</div>
+	<script src="js/jquery-1.11.3.js"></script>
+	<script>
+		var pageno=1;
+		var $value="";
+		//获取其它页面上传过来的值tname  用encodeURI传值  再用decodeURI接受值  才能获取到地址栏中的中文字符
+		var st=window.location.href;//获取浏览器地址栏中的地址
+		console.log(st);
+		var n1=st.length;//获取地址长度
+		var n2=st.indexOf('=');//获取=的位置
+    	var $value=decodeURI(st.substr(n2+1,n1-n2));//获取=后面的内容
+		console.log($value);
+		document.getElementById('name').value=$value;
+            $("#search>a").click(function(){
+                $value=$(":text").val().trim();
+               console.log($value);
+               showsearch(pageno);
+            })
+            //高级功能：
+            //在文本框中一边输入，一边查询结果
+            $(":text").on("input",function(){
+               $("#search>a").click();
+            })
+            //按回车也能查找！
+            $(":text").keyup(function(e){
+               if(e.keyCode==13){//回车
+                   $("#search>a").click();
+               }
+            })
+
+            window.onload=function(){
+				showsearch(pageno);
+				showfan();
+            }
+
+            function showsearch(pageno){
+				var ID=(pageno-1)*10;
+				console.log(ID);
+				
+                //ajax4步
+               //1.创建xhr异步对象
+               var xhr=new XMLHttpRequest();
+               //4.接受响应，创建监听
+               xhr.onreadystatechange=function(){
+                   if(xhr.readyState==4 && xhr.status==200){
+                       var result=xhr.responseText;
+                       //json解析
+                       var arr=JSON.parse(result);
+                       var str="";
+                       var strHTML='';
+					   console.log(arr); 
+                       if(arr.code==1){
+                           str=`<div class="dropdown" id="header-a">
+                                   <button data-toggle="dropdown" class=" dropdown-toggle"><img src="images/头像.png" alt=""></button>
+								   <ul class="dropdown-menu text-center">
+									   <li><a  href="user.html">个人信息</a></li>
+                                       <li><a  href="cart.html">个人书架</a></li>
+                                       <li><a href="index.html">退出</a></li>
+                                   </ul>
+                                   <a href="back_login.html">后台登录</a>
+                               </div>`;
+                               header.innerHTML=str;
+                       
+                       for(var i=0;i<arr.result.length;i++){
+                           strHTML+=`
+                           <div class="section1 row no-gutters">
+                               <div class="col-2">
+                                   <img class="w-75 h-100 pl-5" src="${arr.result[i].timage}" alt=""/>
+                               </div>
+                               <div class="col-8 d-flex flex-column justify-content-around">
+                                   <a href="detail_detail.html?ID=${arr.result[i].ID}" class="h2 font-weight-normal">${arr.result[i].tname}</a>
+                                   <p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">${arr.result[i].author}</a> | <a class="text-muted" href="fenlei_detail.html?tKname=${arr.result[i].tKname}">${arr.result[i].tKind}</a> | ${arr.result[i].tStatus} | ${arr.result[i].tCount}字</p>
+                                   <p>${arr.result[i].description.slice(0,37)}</p>
+                                   <p class="text-muted h6 font-weight-normal">关键词：${arr.result[i].tlabel}</p>
+                               </div>
+                               <div class="col-2">
+                                   <a class="px-3 text-white btn btn-danger" href="detail_detail.html?ID=${arr.result[i].ID}">书籍详情</a>
+                                   <a class="px-3 border border-secondary mt-2 btn btn-light" onclick="addcart(${arr.result[i].tid},'${arr.result[i].tKind}','${arr.result[i].tname}','${arr.result[i].author}','${arr.result[i].tStatus}','${arr.result[i].ID}','${arr.result[i].id}')" id="addShujia">加入书架</a>
+                               </div>
+                           </div>
+                           `;
+                       }
+                       mul.innerHTML=strHTML;
+                   }else if(arr.code==0){
+                       for(var i=0;i<arr.result.length;i++){
+                           strHTML+=`
+                           <div class="section1 row no-gutters">
+                               <div class="col-2">
+                                   <img class="w-75 h-100 pl-5" src="${arr.result[i].timage}" alt=""/>
+                               </div>
+                               <div class="col-8 d-flex flex-column justify-content-around">
+                                   <a href="detail_detail.html?ID=${arr.result[i].ID}" class="h2 font-weight-normal">${arr.result[i].tname}</a>
+                                   <p class="text-muted h6 font-weight-normal"><a class="text-muted" href="">${arr.result[i].author}</a> | <a class="text-muted" href="fenlei_detail.html?tKname=${arr.result[i].tKname}">${arr.result[i].tKind}</a> | ${arr.result[i].tStatus} | ${arr.result[i].tCount}字</p>
+                                   <p>${arr.result[i].description.slice(0,37)}</p>
+                                   <p class="text-muted h6 font-weight-normal">关键词：${arr.result[i].tlabel}</p>
+                               </div>
+                               <div class="col-2">
+                                   <a class="px-3 text-white btn btn-danger" href="detail_detail.html?ID=${arr.result[i].ID}">书籍详情</a>
+                                   <a class="px-3 border border-secondary mt-2 btn btn-light" href="02_login.html">加入书架</a>
+                               </div>
+                           </div>
+                           `;
+                       }
+                       mul.innerHTML=strHTML;
+                   }
+				   
+				}
+                   
+               }
+               //2.创建请求，打开连接
+               xhr.open("post","/ds/v1/search-name",true);
+               //3.发送请求
+               xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+               var formdata="tname="+$value+'&ID='+ID;
+               console.log(formdata);
+			   xhr.send(formdata);
+			   pageno+=1;
+            }
+	
+			console.log(fan);
+			var zcount='';
+			function showfan(){
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						var result=xhr.responseText;
+						result=JSON.parse(result);
+						console.log(result);
+						zcount=Math.ceil(result[0].count);
+						zcount=parseInt(zcount);
+						console.log(zcount);
+						var str='';
+						console.log(zcount/10);
+						for(var i=1;i<=Math.ceil(zcount/10);i++){
+							str+=`
+								<a href="javascript:;" style="border:1px solid #aaa;background-color:#eee;margin-right:10px;margin-left:10px;border-radius:3px;padding:0 10px;" onclick="xiayiye(${i})">${i}</a>
+							`;
+						}
+						console.log(str);
+						document.getElementById('fan').innerHTML=str;
+						console.log(document.getElementById('fan').innerHTML);
+					}
+				}
+				xhr.open('get','/ds/v1/countb/'+$value,true);
+				xhr.send();
+			}
+
+			function shang(){
+				if(pageno==1){
+					var shang=document.getElementById('shang');
+					shang.disabled=true;
+				}else{
+					pageno-=1;
+					showsearch(pageno);
+				}
+				var shang=document.getElementById('shang');
+				shang.disabled=false;
+
+				var a=document.getElementById('fan').children;
+				console.log(a);
+				for(var j=0;j<a.length;j++){
+					if(j==pageno-1){
+						a[j].className='cur';
+					}else{
+						a[j].className='';
+					}
+				}
+			}
+
+			function xia(){
+				if(pageno>(zcount/10-1)){
+					var xia=document.getElementById('xia');
+					xia.disabled=true;
+				}else{
+					pageno+=1;
+					showsearch(pageno);
+				}
+				var xia=document.getElementById('xia');
+				xia.disabled=false;
+				
+				var a=document.getElementById('fan').children;
+				console.log(a);
+				for(var j=0;j<a.length;j++){
+					if(j==pageno-1){
+						a[j].className='cur';
+					}else{
+						a[j].className='';
+					}
+				}
+				
+			}
+
+			function xiayiye(i){
+				pageno=i;
+				showsearch(pageno);
+				if(pageno==i){
+					var a=document.getElementById('fan').children;
+					console.log(a);
+					for(var j=0;j<a.length;j++){
+						if(j==i-1){
+							a[j].className='cur';
+						}else{
+							a[j].className='';
+						}
+					}
+				}
+			}
+	</script>
+	<script src="js/addcart.js"></script>
+	<script src="js/tuichu.js"></script>
+	</body>
+</html>

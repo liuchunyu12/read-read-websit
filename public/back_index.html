@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        /* 添加按钮的模态框和修改按钮的模态框的样式 */
+        #model,#model1{
+            width:500px;
+            height:500px;
+            margin-left:-250px;
+            margin-top:-250px;
+            background-color:skyblue;
+            position:fixed;
+            top:50%;
+            left:50%;
+            z-index:200;
+            color:white;
+            text-align:center;
+            overflow:auto;
+        }
+        #model2,#model3{
+            width:400px;
+            height:300px;
+            margin-left:-200px;
+            margin-top:-150px;
+            background-color:skyblue;
+            position:fixed;
+            top:50%;
+            left:50%;
+            z-index:200;
+            color:white;
+            text-align:center;
+            overflow:auto;
+        }
+        /* 显示模态框时，整个页面的样式 */
+        #outer,#outer1,#outer2,#outer3{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            z-index:100;
+            padding-top:10%;
+            text-align:center;
+            background-repeat:no-repeat;
+            background-position:center center;
+            background-color:#000;
+            background-color:rgba(0,0,0,0.5);
+            filter:alpha(opacity=50);
+            display:none;
+        }
+        /* 模态框中的x的样式及位置 */
+        #outer>span,#outer1>span{
+            position:fixed;
+            top:50%;
+            left:50%;
+            margin-left:250px;
+            margin-top:-250px;
+            color:white;
+            z-index:201;
+            display:block;
+        }
+        #outer2>span,#outer3>span{
+            position:fixed;
+            top:50%;
+            left:50%;
+            margin-left:200px;
+            margin-top:-150px;
+            color:white;
+            z-index:201;
+            display:block;
+        }
+        /* 模态框中添加按钮和修改按钮的样式 */
+        #addbook,#upbook,#updatebook,#jiabook{
+            padding:5px 10px;
+            background-color:blue;
+            color:white;
+            margin-bottom:10px;
+            margin-top:10px;
+            border-color: blue;
+        }
+        /* 添加按钮的样式 */
+        #add,#jia,.chaxun,.all{
+            /* float:left; */
+            color:white;
+            background-color:blue;
+            border-color:blue;
+            padding:5px 10px;
+            margin-top:10px;
+        }
+        input{
+            padding:6px 10px;
+            margin-top:10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div style="display:flex;flex-direction:row;align-items: center;">
+        <h1 style="color:pink;margin-bottom:20px;">欢迎您，管理员</h1>
+        <a href="index.html" style="margin-left:20px;color:gray;text-decoration: none;">返回前台首页</a>
+    </div>
+    <button id="back_book">书籍管理表</button>
+    <button id="back_user">用户管理表</button>
+    <div id="shuji" style="display: none;">
+        <input type="text" id="tname"/>
+        <button onclick="chaxunbook()" class="chaxun">查询书籍</button>
+        <button onclick="add()" id="add">添加书籍</button>
+        <button onclick="zhu()" class="all">查询所有书籍</button>
+        <table id="mulu" border="1"><!--整个页面的表格-->
+        
+        </table>
+        <div id="show"><!--添加按钮的模态框-->
+
+        </div>
+
+        <div id="show1"><!--修改按钮的模态框-->
+
+        </div>
+    
+    
+    
+    
+    </div>
+    
+    <div id="yonghu" style="display: none;">
+        <input type="text" id="uname"/>
+        <button onclick="chaxunuser()" class="chaxun">查询用户</button>
+        <button onclick="jia()" id="jia">添加用户</button>
+        <button onclick="yonghu_zhu()" class="all">查询所有用户</button>
+        <table id="jiamulu" border="1"><!--整个页面的表格-->
+        
+        </table>
+        <div id="jiashow"><!--添加按钮的模态框-->
+
+        </div>
+
+        <div id="updateshow1"><!--修改按钮的模态框-->
+
+        </div>  
+    </div>
+    <script>
+        var tname='';
+        var uname='';
+        function chaxunbook(){//点击查询书籍按钮触发的事件
+            //根据输入框输入的书籍名称，来查询相应的书籍信息
+            tname=document.getElementById('tname').value;
+            cha_zhu(tname);
+        }
+        function chaxunuser(){//点击查询用户按钮触发的事件
+            //根据输入框输入放入用户名称，来查询相应的书籍信息
+            uname=document.getElementById('uname').value;
+            cha_yonghu_zhu(uname);
+
+        }
+
+        function cha_yonghu_zhu(uname){
+            var xhr=new XMLHttpRequest();
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var result=xhr.responseText;
+                var arr=JSON.parse(result);//把获取到的数据解析为JSON格式
+                console.log(arr);
+                //为表格添加标题
+                var str=`
+                <thead>
+                <tr>
+            <th>用户编号</th>
+            <th>用户名称</th>
+            <th>用户密码</th>
+            <th>用户邮箱</th>
+            <th>用户电话</th>
+            <th>用户性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+                 `;
+                 if(arr.code==1){
+                    for(var i=0;i<arr.result.length;i++){//遍历获取到的数据，添加每行数据
+                        //为表格添加所有数据
+                        var gender=arr.result[i].gender;
+                        if(gender==1){
+                            gender='男';
+                        }else{
+                            gender='女';
+                        }
+                     str+=`
+                     <tr>
+                              <td>${arr.result[i].uid}</td>
+                              <td>${arr.result[i].uname}</td>
+                              <td>${arr.result[i].upwd}</td>
+                              <td>${arr.result[i].email}</td>
+                              <td>${arr.result[i].phone}</td>
+                              <td>${gender}</td>
+                              <td>
+                                <button id="update">修改</button>
+                                <button id="delete">删除</button>  
+                              </td>
+                    </tr>`;
+                }
+                jiamulu.innerHTML=str;//把str添加到id为mulu的表中
+                alert('查询所有数据成功！');
+                update_book();//等整个表格加载完成之后，加载up_book()函数
+                 }else{
+                     alert('查询失败！');
+                 }
+                
+            }
+        }
+        xhr.open("get","/ds/v1/chabcusertable/"+uname,true);
+        xhr.send();
+
+        }
+
+        function cha_zhu(tname){//加载整个书籍信息表格的函数
+            var xhr=new XMLHttpRequest();
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var result=xhr.responseText;
+                var arr=JSON.parse(result);//把获取到的数据解析为JSON格式
+                console.log(arr);
+                //为表格添加标题
+                var str=`
+                <thead>
+                <tr>
+            <th>唯一标识</th>
+            <th>图书编号</th>
+            <th>章节编号</th>
+            <th>章节内容编号</th>
+            <th>图书名称</th>
+            <th>图书作者</th>
+            <th>图书章节数</th>
+            <th>图书图片</th>
+            <th>图书是否完结</th>
+            <th>图书描述</th>
+            <th>图书总字数</th>
+            <th>图书标签</th>
+            <th>图书类型</th>
+            <th>图书英文名</th>
+            <th>图书类型英文名</th>
+            <th>图书章节名</th>
+            <th>章节内容1</th>
+            <th>章节内容2</th>
+            <th>章节内容3</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+                 `;
+                 if(arr.code==1){
+                    for(var i=0;i<arr.result.length;i++){//遍历获取到的数据，添加每行数据
+                        //为表格添加所有数据
+                     str+=`
+                     <tr>
+                              <td>${arr.result[i].id}</td>
+                              <td>${arr.result[i].tid}</td>
+                              <td>${arr.result[i].zid}</td>
+                              <td>${arr.result[i].bid}</td>
+                              <td>${arr.result[i].tname}</td>
+                              <td>${arr.result[i].author}</td>
+                              <td>${arr.result[i].tnumber}</td>
+                              <td>${arr.result[i].timage}</td>
+                              <td>${arr.result[i].tStatus}</td>
+                              <td>${arr.result[i].description.slice(0,20)}</td>
+                              <td>${arr.result[i].tCount}</td>
+                              <td>${arr.result[i].tlabel}</td>
+                              <td>${arr.result[i].tKind}</td>
+                              <td>${arr.result[i].ename}</td>
+                              <td>${arr.result[i].tKname}</td>
+                              <td>${arr.result[i].zname}</td>
+                              <td>${arr.result[i].title1.slice(0,20)}</td>
+                              <td>${arr.result[i].title2.slice(0,20)}</td>
+                              <td>${arr.result[i].title3.slice(0,20)}</td>
+                              <td>
+                                <button id="up">修改</button>
+                                <button id="del">删除</button>  
+                              </td>
+                    </tr>`;
+                }
+                mulu.innerHTML=str;//把str添加到id为mulu的表中
+                alert('查询所有数据成功！');
+                up_book();//等整个表格加载完成之后，加载up_book()函数
+                 }else{
+                     alert('查询失败！');
+                 }
+                
+            }
+        }
+        xhr.open("get","/ds/v1/chabctable/"+tname,true);
+        xhr.send();
+
+        }
+    
+
+document.getElementById('back_user').onclick=function(){//点击 用户管理表 的按钮  切换下方的用户表的显示以及隐藏
+    if(document.getElementById('yonghu').style.display=="block"){
+        document.getElementById('yonghu').style.display="none";
+    }else{
+        document.getElementById('yonghu').style.display="block";
+        if(uname!==''){//当查询用户框输入了内容并点击了查询用户按钮之后，执行
+            cha_yonghu_zhu(uname);
+            uname='';
+        }else{
+            yonghu_zhu();//当窗口显示后，立即加载yonghu_zhu()函数
+        }
+
+    }
+    
+}
+
+        // window.onload=yonghu_zhu();
+        function yonghu_zhu(){
+            var xhr=new XMLHttpRequest();
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var result=xhr.responseText;
+                var arr=JSON.parse(result);//把获取到的数据解析为JSON格式
+                console.log(arr);
+                //为表格添加标题
+                var str=`
+                <thead>
+                <tr>
+            <th>用户编号</th>
+            <th>用户名称</th>
+            <th>用户密码</th>
+            <th>用户邮箱</th>
+            <th>用户电话</th>
+            <th>用户性别</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+                 `;
+                 if(arr.code==1){
+                    for(var i=0;i<arr.result.length;i++){//遍历获取到的数据，添加每行数据
+                        //为表格添加所有数据
+                        var gender=arr.result[i].gender;
+                        if(gender==1){
+                            gender='男';
+                        }else{
+                            gender='女';
+                        }
+                     str+=`
+                     <tr>
+                              <td>${arr.result[i].uid}</td>
+                              <td>${arr.result[i].uname}</td>
+                              <td>${arr.result[i].upwd}</td>
+                              <td>${arr.result[i].email}</td>
+                              <td>${arr.result[i].phone}</td>
+                              <td>${gender}</td>
+                              <td>
+                                <button id="update">修改</button>
+                                <button id="delete">删除</button>  
+                              </td>
+                    </tr>`;
+                }
+                jiamulu.innerHTML=str;//把str添加到id为mulu的表中
+                alert('查询所有数据成功！');
+                update_book();//等整个表格加载完成之后，加载up_book()函数
+                 }else{
+                     alert('查询失败！');
+                 }
+                
+            }
+        }
+        xhr.open("get","/ds/v1/bcusertable",true);
+        xhr.send();
+
+        }
+
+        function update_book(){//表格加载完成之后，运行的修改按钮的函数
+          var tbody=document.getElementById('jiamulu').children[1];//获取表格中的tbody的内容
+        //   console.log(tbody);
+          var trs=tbody.children;//获取tbody中的tr
+        //   console.log(trs);
+          for(var tr of trs){//遍历所有tr
+              var tds=tr.children;//获取每行中的所有td
+            //   console.log(tds);
+              
+              for(var x=0;x<=tds.length;x++){//遍历所有td
+                  if(x==tds.length-1){//每行的最后一个td
+                    //   console.log(tds[x]);
+                      var upd=tds[x].children[0];//每个td里面的第一个button修改按钮
+                    //   console.log(up);
+                          upd.onclick=function(){//每一个修改按钮，添加点击事件
+                            // console.log(this);
+                            var uid=this.parentNode.parentNode.children[0].innerHTML;//获取对应的uid 用户编号
+                            console.log(uid);
+                            //为每个修改按钮添加模态框
+                            var str1=`
+                                <div id="outer2">
+                                    <div tabindex="-1" id="model2">
+                    
+                                    </div>
+                                    <span id="sp2">x</span>
+                                </div>
+                                `;
+                            updateshow1.innerHTML=str1;//把模态框添加到id为show1的div上
+                            document.getElementById('outer2').style.display="block";//点击修改按钮，让模态框显示，打开模态框
+                            document.getElementById('model2').onblur=function(){//模态框失去焦点时隐藏，关闭模态框
+                                document.getElementById('outer2').style.display="none";
+                            }
+                            document.getElementById('model2').onfocus=function(){//模态框获得焦点时显示，打开模态框
+                                document.getElementById('outer2').style.display="block";
+                            }
+                            document.getElementById('sp2').onclick=function(){//点击x，更改模态框为隐藏，关闭模态框
+                                document.getElementById('outer2').style.display="none";
+                            }
+
+                            var xhr=new XMLHttpRequest();//从服务器中获取对应行的所有数据内容，并添加到对应的修改按钮的模态框中的文本框中
+                            xhr.onreadystatechange=()=>{
+                                if(xhr.readyState==4&&xhr.status==200){
+                                    var result=xhr.responseText;//获取服务器的数据
+                                    var arr=JSON.parse(result);//将服务器的数据解析为JSON格式
+                                    // console.log(arr);
+                                    if(arr.code==1){//当服务器获取到数据，返回给了前台时
+                                        //把从服务器中获取到的数据添加到模态框中
+                                        var str2=`
+                                            <div>
+                                                <h1>修改书籍</h1>
+                                                用户名称：<input type="text" id="unameUp" value="${arr.result[0].uname}"/><br/>
+                                                用户密码：<input type="text" id="upwdUp" value="${arr.result[0].upwd}"/><br/>
+                                                用户邮箱：<input type="text" id="emailUp" value="${arr.result[0].email}"/><br/>
+                                                用户电话：<input type="text" id="phoneUp" value="${arr.result[0].phone}"/><br/>
+                                                用户性别：<input type="text" id="genderUp" value="${arr.result[0].gender}"/><br/>
+                                                <button id="updatebook">修改书籍</button>
+                                            </div>
+                                        `;
+                                        model2.innerHTML=str2;//把str2添加到id为model1的模态框中
+                                        updatebook(uid);//等整个模态框数据加载完成之后，加载修改书籍函数
+                                    }
+                                }
+                            }
+                            xhr.open('post','/ds/v1/bccxuserup',true);
+                            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                            var formdata='uid='+uid;//传递每行的唯一标识 zid 章节编号 bid 章节内容编号 到服务器接口中
+                            // console.log(formdata);
+                            xhr.send(formdata);
+
+                            function updatebook(uid){//单击修改模态框中的修改按钮之后，根据唯一标识修改数据库中的相应的数据的内容
+                                console.log(uid);
+                                document.getElementById('updatebook').onclick=()=>{
+                                    // console.log(id,bid);
+                                    //获取修改模态框中的每一条数据
+                                    var unameUp=document.getElementById('unameUp').value;
+                                    var upwdUp=document.getElementById('upwdUp').value;
+                                    var emailUp=document.getElementById('emailUp').value;
+                                    var phoneUp=document.getElementById('phoneUp').value;
+                                    var genderUp=document.getElementById('genderUp').value
+                                    
+
+                                    var xhr=new XMLHttpRequest();
+                                    // console.log(xhr);
+                                    xhr.onreadystatechange=()=>{
+                                        if(xhr.readyState==4&&xhr.status==200){
+                                            var result=xhr.responseText;
+                                            console.log(result);
+                                            if(result==1){//修改成功后，页面上显示的值
+                                                alert('修改成功');
+                                                document.getElementById("outer2").style.display="none";//隐藏修改模态框
+                                                yonghu_zhu();//重新加载一次数据表，刷新页面上的显示
+                                            }else{//修改失败，页面上显示的值
+                                                alert('修改失败');
+                                            }
+                                        }
+                                    }
+                                    // console.log(xhr.onreadystatechange);
+                                    xhr.open("post","/ds/v1/bcupuserbook",true);
+                                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                                    var formdata='uid='+uid+'&uname='+unameUp+'&upwd='+upwdUp+'&email='+emailUp+'&phone='+phoneUp+'&gender='+genderUp;
+                                    console.log(formdata);
+                                    xhr.send(formdata);//把修改的数据发送给对应的服务器接口中
+                                }
+                                
+                            }
+
+                        }
+                      
+                      var dele=tds[x].children[1];//每个td里面的第二个button删除按钮
+                        dele.onclick=function(){//为每一个删除按钮，添加点击事件
+                            var uid=this.parentNode.parentNode.children[0].innerHTML;//获取每行数据的唯一标识
+                            
+
+                            var xhr=new XMLHttpRequest();//根据id唯一标识，删除指定的整条数据
+                            xhr.onreadystatechange=()=>{
+                                if(xhr.readyState==4&&xhr.status==200){
+                                    var result=xhr.responseText;
+                                    console.log(result);
+                                    if(result==1){
+                                        alert('删除成功');
+                                        yonghu_zhu();
+                                    }else{
+                                        alert('删除失败');
+                                    }
+                                }
+                            }
+                            xhr.open('post','/ds/v1/bcuserdel',true);
+                            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                            var formdata='uid='+uid;
+                            console.log(formdata);
+                            xhr.send(formdata);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        function jia(){//单击添加按钮后，添加数据到数据表中的函数
+            var str=`
+                <div id="outer3">
+                    <div tabindex="-1" id="model3">
+                        <h1>添加书籍</h1>
+                        用户编号: <input type="text" id="uid"/><br/>
+                        用户名称：<input type="text" id="uname"/><br/>
+                        用户密码：<input type="text" id="upwd"/><br/>
+                        用户邮箱：<input type="text" id="email"/><br/>
+                        用户电话：<input type="text" id="phone"/><br/>
+                        用户性别：<input type="text" id="gender"/><br/>
+                        <button id="jiabook" onclick="jiabook()">添加书籍</button>
+                    </div>
+                    <span id="sp3">×</span>
+                </div>            `;
+            jiashow.innerHTML=str;
+            document.getElementById("model3").onblur=function(){
+                document.getElementById("outer3").style.display="none";
+            }
+            document.getElementById("model3").onfocus=function(){
+                document.getElementById("outer3").style.display="block";
+            }
+                document.getElementById("outer3").style.display="block";
+            
+            document.getElementById('sp3').onclick=function(){
+                document.getElementById('outer3').style.display="none";
+            }
+
+            
+            document.getElementById('jiabook').onclick=()=>{
+                var uid=document.getElementById('uid').value;
+                var uname=document.getElementById('uname').value;
+                var upwd=document.getElementById('upwd').value;
+                var email=document.getElementById('email').value;
+                var phone=document.getElementById('phone').value;
+                var gender=document.getElementById('gender').value;
+              
+
+                var xhr=new XMLHttpRequest();
+                // console.log(xhr);
+                xhr.onreadystatechange=()=>{
+                    if(xhr.readyState==4&&xhr.status==200){
+                        var result=xhr.responseText;
+                        // console.log(result);
+                        if(result==1){
+                            alert('添加成功');
+                            document.getElementById("outer3").style.display="none";
+                            yonghu_zhu();
+                        }else{
+                        alert('添加失败');
+                        }
+                    }
+                }
+                // console.log(xhr.onreadystatechange);
+                xhr.open("post","/ds/v1/bcadduserbook",true);
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                var formdata='uid='+uid+'&uname='+uname+'&upwd='+upwd+'&email='+email+'&phone='+phone+'&gender='+gender;
+                console.log(formdata);
+                xhr.send(formdata);
+            }
+        }
+
+
+
+document.getElementById('back_book').onclick=function(){//点击 书籍管理表 的按钮  切换下方的书籍表的显示以及隐藏
+    if(document.getElementById('shuji').style.display=="block"){
+        document.getElementById('shuji').style.display="none";
+    }else{
+        document.getElementById('shuji').style.display="block";
+        if(tname!==''){//当查询书籍框输入了内容，并点击了查询书籍按钮后，执行
+            cha_zhu(tname);
+            tname='';
+        }else{
+            zhu();//当窗口显示后，立即加载zhu()函数
+        }
+
+    }
+    
+}
+
+function add(){//单击添加按钮后，添加数据到数据表中的函数
+            var str=`
+                <div id="outer">
+                    <div tabindex="-1" id="model">
+                        <h1>添加书籍</h1>
+                        图书编号: <input type="text" id="tid"/><br/>
+                        章节编号：<input type="text" id="zid"/><br/>
+                        章节内容编号：<input type="text" id="bid"/><br/>
+                        图书名称：<input type="text" id="tname"/><br/>
+                        图书作者：<input type="text" id="author"/><br/>
+                        图书章节数：<input type="text" id="tnumber"/><br/>
+                        图书图片：<input type="text" id="timage"/><br/>
+                        图书是否完结：<input type="text" id="tStatus"/><br/>
+                        图书描述：<textarea col="5" rows="5" id="description"></textarea><br/>
+                        图书总字数：<input type="text" id="tCount"/><br/>
+                        图书标签：<input type="text" id="tlabel"/><br/>
+                        图书类型：<input type="text" id="tKind"/><br/>
+                        图书英文名：<input type="text" id="ename"/><br/>
+                        图书类型英文名：<input type="text" id="tKname"/><br/>
+                        图书章节名：<input type="text" id="zname"/><br/>
+                        章节内容1：<textarea col="5" rows="5" id="title1"></textarea><br/>
+                        章节内容2：<textarea col="5" rows="5" id="title2"></textarea><br/>
+                        章节内容3：<textarea col="5" rows="5" id="title3"></textarea><br/>
+                        <button id="addbook" onclick="addbook()">添加书籍</button>
+                    </div>
+                    <span id="sp">×</span>
+                </div>            `;
+            show.innerHTML=str;
+            document.getElementById("model").onblur=function(){
+                document.getElementById("outer").style.display="none";
+            }
+            document.getElementById("model").onfocus=function(){
+                document.getElementById("outer").style.display="block";
+            }
+                document.getElementById("outer").style.display="block";
+            
+            document.getElementById('sp').onclick=function(){
+                document.getElementById('outer').style.display="none";
+            }
+
+            
+            document.getElementById('addbook').onclick=()=>{
+                var tid=document.getElementById('tid').value;
+                var zid=document.getElementById('zid').value;
+                var bid=document.getElementById('bid').value;
+                var tname=document.getElementById('tname').value;
+                var author=document.getElementById('author').value;
+                var tnumber=document.getElementById('tnumber').value;
+                var timage=document.getElementById('timage').value;
+                var tStatus=document.getElementById('tStatus').value;
+                var description=document.getElementById('description').value;
+                var tCount=document.getElementById('tCount').value;
+                var tlabel=document.getElementById('tlabel').value;
+                var tKind=document.getElementById('tKind').value;
+                var ename=document.getElementById('ename').value;
+                var tKname=document.getElementById('tKname').value;
+                var zname=document.getElementById('zname').value;
+                var title1=document.getElementById('title1').value;
+                var title2=document.getElementById('title2').value;
+                var title3=document.getElementById('title3').value;
+                // console.log(tid,zid,bid,tname,author,tnumber,timage,tStatus,description,tCount,tlabel,tKind,tXq,zname,ename,title1,title2,title3);
+
+              
+
+                var xhr=new XMLHttpRequest();
+                // console.log(xhr);
+                xhr.onreadystatechange=()=>{
+                    if(xhr.readyState==4&&xhr.status==200){
+                        var result=xhr.responseText;
+                        // console.log(result);
+                        if(result==1){
+                            alert('添加成功');
+                            document.getElementById("outer").style.display="none";
+                            zhu();
+                        }else{
+                        alert('添加失败');
+                        }
+                    }
+                }
+                // console.log(xhr.onreadystatechange);
+                xhr.open("post","/ds/v1/bcaddbook",true);
+                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                var formdata='tid='+tid+'&zid='+zid+'&bid='+bid+'&tname='+tname+'&author='+author+'&tnumber='+tnumber+'&timage='+timage+'&tStatus='+tStatus+'&description='+description+'&tCount='+tCount+'&tlabel='+tlabel+'&tKind='+tKind+'&tKname='+tKname+'&zname='+zname+'&ename='+ename+'&title1='+title1+'&title2='+title2+'&title3='+title3;
+                // console.log(formdata);
+                xhr.send(formdata);
+            }
+        }
+
+        // window.onload=zhu();//当页面加载完成后，立即加载zhu()函数
+        function zhu(){//加载整个书籍信息表格的函数
+            var xhr=new XMLHttpRequest();
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4&&xhr.status==200){
+                var result=xhr.responseText;
+                var arr=JSON.parse(result);//把获取到的数据解析为JSON格式
+                console.log(arr);
+                //为表格添加标题
+                var str=`
+                <thead>
+                <tr>
+            <th>唯一标识</th>
+            <th>图书编号</th>
+            <th>章节编号</th>
+            <th>章节内容编号</th>
+            <th>图书名称</th>
+            <th>图书作者</th>
+            <th>图书章节数</th>
+            <th>图书图片</th>
+            <th>图书是否完结</th>
+            <th>图书描述</th>
+            <th>图书总字数</th>
+            <th>图书标签</th>
+            <th>图书类型</th>
+            <th>图书英文名</th>
+            <th>图书类型英文名</th>
+            <th>图书章节名</th>
+            <th>章节内容1</th>
+            <th>章节内容2</th>
+            <th>章节内容3</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+                 `;
+                 if(arr.code==1){
+                    for(var i=0;i<arr.result.length;i++){//遍历获取到的数据，添加每行数据
+                        //为表格添加所有数据
+                     str+=`
+                     <tr>
+                              <td>${arr.result[i].id}</td>
+                              <td>${arr.result[i].tid}</td>
+                              <td>${arr.result[i].zid}</td>
+                              <td>${arr.result[i].bid}</td>
+                              <td>${arr.result[i].tname}</td>
+                              <td>${arr.result[i].author}</td>
+                              <td>${arr.result[i].tnumber}</td>
+                              <td>${arr.result[i].timage}</td>
+                              <td>${arr.result[i].tStatus}</td>
+                              <td>${arr.result[i].description.slice(0,20)}</td>
+                              <td>${arr.result[i].tCount}</td>
+                              <td>${arr.result[i].tlabel}</td>
+                              <td>${arr.result[i].tKind}</td>
+                              <td>${arr.result[i].ename}</td>
+                              <td>${arr.result[i].tKname}</td>
+                              <td>${arr.result[i].zname}</td>
+                              <td>${arr.result[i].title1.slice(0,20)}</td>
+                              <td>${arr.result[i].title2.slice(0,20)}</td>
+                              <td>${arr.result[i].title3.slice(0,20)}</td>
+                              <td>
+                                <button id="up">修改</button>
+                                <button id="del">删除</button>  
+                              </td>
+                    </tr>`;
+                }
+                mulu.innerHTML=str;//把str添加到id为mulu的表中
+                alert('查询所有数据成功！');
+                up_book();//等整个表格加载完成之后，加载up_book()函数
+                 }else{
+                     alert('查询失败！');
+                 }
+                
+            }
+        }
+        xhr.open("get","/ds/v1/bctable",true);
+        xhr.send();
+
+        }
+    
+    function up_book(){//表格加载完成之后，运行的修改按钮的函数
+          var tbody=document.getElementById('mulu').children[1];//获取表格中的tbody的内容
+        //   console.log(tbody);
+          var trs=tbody.children;//获取tbody中的tr
+        //   console.log(trs);
+          for(var tr of trs){//遍历所有tr
+              var tds=tr.children;//获取每行中的所有td
+            //   console.log(tds);
+              
+              for(var x=0;x<=tds.length;x++){//遍历所有td
+                  if(x==tds.length-1){//每行的最后一个td
+                    //   console.log(tds[x]);
+                      var up=tds[x].children[0];//每个td里面的第一个button修改按钮
+                    //   console.log(up);
+                          up.onclick=function(){//每一个修改按钮，添加点击事件
+                            // console.log(this);
+                            var id=this.parentNode.parentNode.children[2].innerHTML;//获取对应的zid 章节编号
+                            // console.log(id);
+                            var bid=this.parentNode.parentNode.children[3].innerHTML;//获取对应的bid 章节内容
+                            // console.log(bid);
+                            //为每个修改按钮添加模态框
+                            var str1=`
+                                <div id="outer1">
+                                    <div tabindex="-1" id="model1">
+                    
+                                    </div>
+                                    <span id="sp1">x</span>
+                                </div>
+                                `;
+                            show1.innerHTML=str1;//把模态框添加到id为show1的div上
+                            document.getElementById('outer1').style.display="block";//点击修改按钮，让模态框显示，打开模态框
+                            document.getElementById('model1').onblur=function(){//模态框失去焦点时隐藏，关闭模态框
+                                document.getElementById('outer1').style.display="none";
+                            }
+                            document.getElementById('model1').onfocus=function(){//模态框获得焦点时显示，打开模态框
+                                document.getElementById('outer1').style.display="block";
+                            }
+                            document.getElementById('sp1').onclick=function(){//点击x，更改模态框为隐藏，关闭模态框
+                                document.getElementById('outer1').style.display="none";
+                            }
+
+                            var xhr=new XMLHttpRequest();//从服务器中获取对应行的所有数据内容，并添加到对应的修改按钮的模态框中的文本框中
+                            xhr.onreadystatechange=()=>{
+                                if(xhr.readyState==4&&xhr.status==200){
+                                    var result=xhr.responseText;//获取服务器的数据
+                                    var arr=JSON.parse(result);//将服务器的数据解析为JSON格式
+                                    // console.log(arr);
+                                    if(arr.code==1){//当服务器获取到数据，返回给了前台时
+                                        //把从服务器中获取到的数据添加到模态框中
+                                        var str2=`
+                                            <div>
+                                                <h1>修改书籍</h1>
+                                                图书编号: <input type="text" id="tidUp" value="${arr.result[0].tid}"/><br/>
+                                                图书名称：<input type="text" id="tnameUp" value="${arr.result[0].tname}"/><br/>
+                                                图书作者：<input type="text" id="authorUp" value="${arr.result[0].author}"/><br/>
+                                                图书章节数：<input type="text" id="tnumberUp" value="${arr.result[0].tnumber}"/><br/>
+                                                图书图片：<input type="text" id="timageUp" value="${arr.result[0].timage}"/><br/>
+                                                图书是否完结：<input type="text" id="tStatusUp" value="${arr.result[0].tStatus}"/><br/>
+                                                图书描述：<textarea col="5" rows="5" id="descriptionUp">${arr.result[0].description}</textarea><br/>
+                                                图书总字数：<input type="text" id="tCountUp" value="${arr.result[0].tCount}"/><br/>
+                                                图书标签：<input type="text" id="tlabelUp" value="${arr.result[0].tlabel}"/><br/>
+                                                图书类型：<input type="text" id="tKindUp" value="${arr.result[0].tKind}"/><br/>
+                                                图书英文名：<input type="text" id="enameUp" value="${arr.result[0].ename}"/><br/>
+                                                图书类型英文名：<input type="text" id="tKnameUp" value="${arr.result[0].tKname}"/><br/>
+                                                图书章节名：<input type="text" id="znameUp" value="${arr.result[0].zname}"/><br/>
+                                                章节内容1：<textarea col="5" rows="5" id="title1Up">${arr.result[0].title1}</textarea><br/>
+                                                章节内容2：<textarea col="5" rows="5" id="title2Up">${arr.result[0].title2}</textarea><br/>
+                                                章节内容3：<textarea col="5" rows="5" id="title3Up">${arr.result[0].title3}</textarea><br/>
+                                                <button id="upbook">修改书籍</button>
+                                            </div>
+                                        `;
+                                        model1.innerHTML=str2;//把str2添加到id为model1的模态框中
+                                        upbook(id,bid);//等整个模态框数据加载完成之后，加载修改书籍函数
+                                    }
+                                }
+                            }
+                            xhr.open('post','/ds/v1/bccxup',true);
+                            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                            var formdata='zid='+id;//传递每行的唯一标识 zid 章节编号 bid 章节内容编号 到服务器接口中
+                            // console.log(formdata);
+                            xhr.send(formdata);
+
+                            function upbook(id,bid){//单击修改模态框中的修改按钮之后，根据唯一标识修改数据库中的相应的数据的内容
+                                document.getElementById('upbook').onclick=()=>{
+                                    // console.log(id,bid);
+                                    //获取修改模态框中的每一条数据
+                                    var tidUp=document.getElementById('tidUp').value;
+                                    var tnameUp=document.getElementById('tnameUp').value;
+                                    var authorUp=document.getElementById('authorUp').value;
+                                    var tnumberUp=document.getElementById('tnumberUp').value;
+                                    var timageUp=document.getElementById('timageUp').value;
+                                    var tStatusUp=document.getElementById('tStatusUp').value;
+                                    var descriptionUp=document.getElementById('descriptionUp').value;
+                                    var tCountUp=document.getElementById('tCountUp').value;
+                                    var tlabelUp=document.getElementById('tlabelUp').value;
+                                    var tKindUp=document.getElementById('tKindUp').value;
+                                    var enameUp=document.getElementById('enameUp').value;
+                                    var tKnameUp=document.getElementById('tKnameUp').value;
+                                    var znameUp=document.getElementById('znameUp').value;
+                                    var title1Up=document.getElementById('title1Up').value;
+                                    var title2Up=document.getElementById('title2Up').value;
+                                    var title3Up=document.getElementById('title3Up').value;
+                                    // console.log(tid,tname,author,tnumber,timage,tStatus,description,tCount,tlabel,tKind,tXq,zname,ename,title1,title2,title3);
+
+                                    var xhr=new XMLHttpRequest();
+                                    // console.log(xhr);
+                                    xhr.onreadystatechange=()=>{
+                                        if(xhr.readyState==4&&xhr.status==200){
+                                            var result=xhr.responseText;
+                                            console.log(result);
+                                            if(result==1){//修改成功后，页面上显示的值
+                                                alert('修改成功');
+                                                document.getElementById("outer1").style.display="none";//隐藏修改模态框
+                                                zhu();//重新加载一次数据表，刷新页面上的显示
+                                            }else{//修改失败，页面上显示的值
+                                                alert('修改失败');
+                                            }
+                                        }
+                                    }
+                                    // console.log(xhr.onreadystatechange);
+                                    xhr.open("post","/ds/v1/bcupbook",true);
+                                    xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+                                    var formdata='zid='+id+'&bid='+bid+'&tid='+tidUp+'&tname='+tnameUp+'&author='+authorUp+'&tnumber='+tnumberUp+'&timage='+timageUp+'&tStatus='+tStatusUp+'&description='+descriptionUp+'&tCount='+tCountUp+'&tlabel='+tlabelUp+'&tKind='+tKindUp+'&tKname='+tKnameUp+'&zname='+znameUp+'&ename='+enameUp+'&title1='+title1Up+'&title2='+title2Up+'&title3='+title3Up;
+                                    // console.log(formdata);
+                                    xhr.send(formdata);//把修改的数据发送给对应的服务器接口中
+                                }
+                                
+                            }
+
+                        }
+                      
+                      var del=tds[x].children[1];//每个td里面的第二个button删除按钮
+                        del.onclick=function(){//为每一个删除按钮，添加点击事件
+                            var id=this.parentNode.parentNode.children[0].innerHTML;//获取每行数据的唯一标识
+                            var tid=this.parentNode.parentNode.children[1].innerHTML;
+                            var zid=this.parentNode.parentNode.children[2].innerHTML;
+                            var bid=this.parentNode.parentNode.children[3].innerHTML;
+                            console.log(id,tid,bid,zid);
+
+                            var xhr=new XMLHttpRequest();//根据id唯一标识，删除指定的整条数据
+                            xhr.onreadystatechange=()=>{
+                                if(xhr.readyState==4&&xhr.status==200){
+                                    var result=xhr.responseText;
+                                    console.log(result);
+                                    if(result==1){
+                                        alert('删除成功');
+                                        zhu();
+                                    }else{
+                                        alert('删除失败');
+                                    }
+                                }
+                            }
+                            xhr.open('post','/ds/v1/bcdel',true);
+                            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                            var formdata='id='+id+'&zid='+zid+'&tid='+tid+'&bid='+bid;
+                            console.log(formdata);
+                            xhr.send(formdata);
+                        }
+                    }
+                }
+            }
+            
+           
+
+            
+        
+        
+        
+    }
+       
+ 
+        
+        
+    </script>
+</body>
+</html>

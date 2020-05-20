@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+	<head>
+		<title>个人信息</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/header.css"/>
+		<link rel="stylesheet" href="css/cart.css"/>
+        <style>
+            #item{
+                font-size:26px;
+                margin:120px 500px;
+                height:200px;
+                /* border:1px solid red; */
+            }
+            #item>p{
+                margin-bottom:40px;
+            }
+            #item input{
+                border:0px;/*删除输入框的边框*/
+                outline:0px;/*删除输入框的外边框*/
+            }
+        </style>
+    </head>
+	<body>
+		<div id="header">
+			<div class="dropdown" id="header-a">
+                <button data-toggle="dropdown" class=" dropdown-toggle"><img src="images/头像.png" alt=""></button>
+                <ul class="dropdown-menu text-center">
+                    <li><a href="user.html">个人信息</a></li>
+                    <li><a  href="cart.html">个人书架</a></li>
+                    <li><a onclick="tuichu()">退出</a></li>
+				</ul>
+				<a href="back_login.html">后台登录</a>
+            </div>
+
+			
+
+		</div>
+
+
+
+	<div id="header-search">
+		<div id="title">
+			<span>读</span>
+		</div>
+		<div id="search">
+		
+			<input id="name" type="text" placeholder="雪中悍刀行"/>
+			<a class="btn btn-danger" id="s_a"  href="">搜索</a>
+		
+	</div>
+		
+	</div>
+
+
+	<div id="header-daohang">
+		<div id="zhu">
+
+			<div id="zhu-daohang">
+				<ul>
+					<li><a href="index.html">首页</a></li>
+					<li><a href="shuku.html">书库</a></li>
+					<li><a href="wanben.html">完本</a></li>
+					<li><a href="mianfei.html">免费</a></li>
+
+				</ul>
+			</div>
+
+
+		</div>
+    </div>
+    
+    <div id="item">
+
+    </div>
+    <script>
+			var $value='';
+	var s_a=document.getElementById('s_a');
+	 $("#search>a").click(function(){
+                $value=$(":text").val().trim();
+			   console.log($value);
+			   s_a.setAttribute('href','search.html?tname='+encodeURI($value));
+				console.log(s_a);
+            })
+            //高级功能：
+            //在文本框中一边输入，一边查询结果
+            $(":text").on("input",function(){
+               $("#search>a").click();
+            })
+            //按回车也能查找！
+            $(":text").keyup(function(e){
+               if(e.keyCode==13){//回车
+                   $("#search>a").click();
+               }
+            });
+
+		window.onload=function(){
+            var xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var result=xhr.responseText;
+                    console.log(result);
+                    if(result==0){
+                        alert('查询失败');
+                    }else{
+                        var arr=JSON.parse(result);
+                        var str=`
+                            <p>用户名称：<input type="text" value="${arr.uname}" readonly/></p>
+                            <p>用户邮箱：<input type="text" value="${arr.email}" readonly/></p>
+                            <p>联系方式：<input type="text" value="${arr.phone}" readonly/></p>
+                            <p>用户性别：<input type="radio" id="man" name="gender" readonly/>
+                                      <label for="man">男</label>
+                                      <input type="radio" id="woman" name="gender" readonly/>
+                                      <label for="woman">女</label></p>
+                        `;
+                        item.innerHTML=str;
+                        if(arr.gender==1){
+                            var man=document.getElementById('man');
+                            console.log(man);
+                            man.checked=true;
+                        }else{
+                            var woman=document.getElementById('woman');
+                            woman.checked=true;
+                        }
+
+                    }
+                }
+            }
+            xhr.open('get','/ds/v1/un',true);
+            xhr.send();
+        }
+	</script>
+	<script src="js/tuichu.js"></script>
+</body>
+</html>

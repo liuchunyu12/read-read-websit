@@ -1,0 +1,29 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+ul{
+    list-style:none;
+}
+a:hover{
+    color:red;
+}
+.section1{
+    margin:0 auto;
+    width:1200px;
+    padding:20px 0;
+
+    border-bottom:1px dotted black;
+    height:173px;
+}
+
+.w-66{
+    width:66%;
+}
+
+.cur{
+    background-color:pink !important;
+    border-color:pink !important;
+    color:red !important;
+}

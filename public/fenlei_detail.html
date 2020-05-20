@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书籍分类</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/fenlei.css">
+</head>
+<body>
+    <div id="header">
+		<div id="header-a" class="text-muted">
+			<a  href="02_login.html">登录</a>|<a href="01_reg.html">注册</a>
+			<a href="back_login.html">后台登录</a>
+		</div>
+
+	</div>
+
+
+
+	<div id="header-search">
+		<div id="title">
+			<span>读</span>
+		</div>
+		<div id="search">
+		
+			<input id="name" type="text" placeholder="雪中悍刀行">
+			<a class="btn btn-danger" id="s_a"  href="">搜索</a>
+		
+	</div>
+		
+	</div>
+
+
+	<div id="header-daohang">
+		<div id="zhu">
+
+			<div id="zhu-daohang">
+				<ul>
+					<li><a href="index.html">首页</a></li>
+					<li><a href="shuku.html">书库</a></li>
+					<li><a href="wanben.html">完本</a></li>
+					<li><a href="mianfei.html">免费</a></li>
+
+				</ul>
+			</div>
+
+
+		</div>
+    </div>
+    <div id="banner1" >
+        <!-- <img src="../images/fenlei/xuanyilingyi.jpg"/> -->
+        <!-- <span>都市娱乐</span> -->
+   </div>
+    <div id="mul">
+    <!-- 
+    <div class="ys">
+        <img src="../images/fenlei/wanshiweiwang.jpeg"/>
+        <div class="right">
+            <a href=""><h3>万世为王</h3></a>
+            <span class="text-muted">作者</span>
+            <h5 class="font-weight-nomal">贪睡的龙</h5>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="text-muted">类型</span>
+            <h5 class="font-weight-nomal">东方玄幻</h5><br/>
+            <p>再生少年时，重行修行路，既如此，此生当无敌，诸天千域，万世为王！</p>
+        </div>
+    </div> -->
+</div>
+<script src="js/ajax.js"></script>
+<script>
+	var $value='';
+	var s_a=document.getElementById('s_a');
+	 $("#search>a").click(function(){
+                $value=$(":text").val().trim();
+			   console.log($value);
+			   s_a.setAttribute('href','search.html?tname='+encodeURI($value));
+				console.log(s_a);
+            })
+            //高级功能：
+            //在文本框中一边输入，一边查询结果
+            $(":text").on("input",function(){
+               $("#search>a").click();
+            })
+            //按回车也能查找！
+            $(":text").keyup(function(e){
+               if(e.keyCode==13){//回车
+                   $("#search>a").click();
+               }
+            })
+
+    window.onload=fenlei;
+</script>
+<script src="js/tuichu.js"></script>
+</body>
+</html>

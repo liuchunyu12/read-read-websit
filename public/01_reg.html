@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+	<head>
+		<title>用户注册</title>
+		<meta charset="utf-8">
+		<script>
+		var unameCheck=false;
+		var upwdCheck=false;
+		var cpwdCheck=false;
+		var emailCheck=false;
+		var phoneCheck=false;
+			function reg(){
+				if(unameCheck && upwdCheck && cpwdCheck && emailCheck && phoneCheck){
+				
+				}else{
+						alert("信息格式错误");
+						return;
+				}
+				var $uname=uname.value;
+				var $upwd=upwd.value;
+				var $cpwd=cpwd.value;
+				var $email=email.value;
+				var $phone=phone.value;
+				var sex='';
+				if(man.checked==true){
+					 sex='1';
+				}else{
+					sex='0';
+				}
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+						if(xhr.readyState==4&&xhr.status==200){
+								var result=xhr.responseText;
+								if(result==1){
+									alert("注册成功");
+									location.href="02_login.html";
+								}else{
+									alert("注册失败");
+								}
+						}
+				}
+				xhr.open("post","/ds/v1/reg",true);
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				var formdata="uname="+$uname+"&upwd="+$upwd+"&email="+$email+"&phone="+$phone+"&gender="+sex;
+				xhr.send(formdata);
+			}
+			function show_uname(){
+				uname_msg.innerHTML="用户名为3-6位";
+			}
+			function check_uname(){
+				var $uname=uname.value;
+				if(!$uname){
+					uname_msg.innerHTML="用户名不能为空";
+					unameCheck=false;
+				}else if($uname.length>=3 && $uname.length<=6){
+					var xhr=new XMLHttpRequest();
+					xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						var result=xhr.responseText;
+						console.log(result);
+						if(result==1){
+							uname_msg.innerHTML="用户名已存在，请重新输入";
+							unameCheck=false;
+						}else{
+							uname_msg.innerHTML="√";
+							unameCheck=true;
+						}
+					}
+				}
+				xhr.open("get","/ds/v1/check_uname/"+$uname,true);
+				xhr.send();
+				}else{
+					uname_msg.innerHTML="用户名格式错误";
+					unameCheck=false;
+				}
+			}
+			function show_upwd(){
+				upwd_msg.innerHTML="密码为6-12位";
+			}
+			function check_upwd(){
+				$upwd=upwd.value;
+				if(!$upwd){
+					upwd_msg.innerHTML="密码不能为空";
+					upwdCheck=false;
+				}else if($upwd.length>=6 && $upwd.length<=12){
+					upwd_msg.innerHTML="√";
+					upwdCheck=true;
+				}else{
+					upwd_msg.innerHTML="密码格式错误";
+					upwdcheck=false;
+				}
+			}
+			function show_cpwd(){
+				cpwd_msg.innerHTML="重复密码要与密码一致";
+			}
+			function  check_cpwd(){
+				$cpwd=cpwd.value;
+				if(!$cpwd){
+					cpwd_msg.innerHTML="重复密码不能为空";
+					cpwdCheck=false;
+				}else if($cpwd==upwd.value){
+					cpwd_msg.innerHTML="√";
+					cpwdCheck=true;
+				}else{
+					cpwd_msg.innerHTML="重复密码和密码不一致，请重新输入";
+					cpwdCheck=false;
+				}
+
+			}
+			function show_email(){
+				email_msg.innerHTML="邮箱包含@符号，包含用户名和域名";
+			}
+			function check_email(){
+				$email=email.value;
+				if(!$email){
+					email_msg.innerHTML="邮箱不能为空";
+					emailCheck=false;
+				}else{
+					email_msg.innerHTML="√";
+					emailCheck=true;
+				}
+			}
+			function show_phone(){
+				phone_msg.innerHTML="电话为11位";
+			}
+			function check_phone(){
+				$phone=phone.value;
+				if(!$phone){
+					phone_msg.innerHTML="电话不能为空";
+					phoneCheck=false;
+				}else{
+					phone_msg.innerHTML="√";
+					phoneCheck=true;
+				}
+			}
+		</script>
+		<style>
+		*{
+			margin:0;
+			padding:0;
+			box-sizing:border-box;
+		}
+		body{
+			width:100%;
+			height:100%;
+			background-color:#0ff;
+		}
+		img{width:100%;height:900px;position:relative;display:block;}
+		#table1{
+				background-color:#fff;
+				border:1px solid #ccc;
+				box-shadow:10px 10px 10px 10px #aaa;
+				border-radius:5px;
+				padding:50px;
+				position:absolute;
+				left:400px;
+				top:300px;
+				color:#000;
+			}
+			
+			button{
+				width:150px;
+				height:40px;
+				text-align:center;
+				margin-left:95px;
+				margin-top:30px;
+				background-color:#0ff;
+				border-radius:5px;
+			}
+		</style>
+	</head>
+	<body>
+	<img src="images/reg.jpg" alt="">
+	  <table id="table1" align="center">
+		  <tr>
+		<td><label for="uname">用户名：</label></td>
+		<td><input type="text" onfocus="show_uname()"  onblur="check_uname()" id="uname">
+			 <span id="uname_msg"></span></td>	
+		  </tr>
+			<tr>
+		<td><label for="upwd">密码：</label></td>
+		<td><input  onfocus="show_upwd()" onblur="check_upwd()" type="password" id="upwd">
+			 <span id="upwd_msg"></span></td>
+		</tr>
+		<tr>
+		<td><label for="cpwd">重复密码：</label></td>
+		<td><input onfocus="show_cpwd()" onblur="check_cpwd()" type="password" id="cpwd">
+			 <span id="cpwd_msg"></span></td>
+		</tr>
+		<tr>
+		<td><label for="email">用户邮箱：</label></td>
+		<td><input onfocus="show_email()" onblur="check_email()" type="email" id="email">
+			 <span id="email_msg"></span></td>
+		</tr>
+		<tr>
+		<td><label for="phone">联系方式：</label></td>
+		<td><input onfocus="show_phone()" onblur="check_phone()" type="tel" id="phone">
+		   <span id="phone_msg"></span></td>
+		</tr>
+		<tr>
+		<td><label for="gender">用户性别：</label></td>
+		<td><input type="radio"  name="gender" id="man">
+			 <label for="man">男</label>
+			 <input type="radio"  name="gender" id="woman">
+			 <label for="woman">女</label></td>
+		</tr>
+	  <tr><td colspan="2"><button onclick="reg()">注册</button></td></tr>
+		</table>
+	</body>
+</html>

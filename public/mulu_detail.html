@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/mulu.css">
+  <title>书籍目录</title>
+</head>
+<body>
+  <div id="header">
+    <div id="header-a" class="text-muted">
+      <a  href="02_login.html">登录</a>|<a href="01_reg.html">注册</a>
+      <a href="back_login.html">后台登录</a>
+    </div>
+  
+  </div>
+  
+  
+  
+  <div id="header-search">
+    <div id="title">
+      <span>读</span>
+    </div>
+    <div id="search">
+		
+			<input id="name" type="text" placeholder="雪中悍刀行">
+			<a class="btn btn-danger" id="s_a"  href="">搜索</a>
+		
+	</div>
+    
+  </div>
+  
+  <div id="header-daohang">
+    <div id="zhu">
+        
+        <div id="zhu-daohang">
+            <ul>
+              <li><a href="index.html">首页</a></li>
+              <li><a href="shuku.html">书库</a></li>
+              <li><a href="wanben.html">完本</a></li>
+              <li><a href="mianfei.html">免费</a></li>
+              
+            </ul>
+          </div>
+        
+      
+    </div>
+  </div>
+
+<div id="mul">
+    <!-- <ul class="breadcrumb dao">
+        <li>当前位置：</li>
+      <li class="breadcrumb-item text-muted"><a href="">首页</a></li>
+      <li class="breadcrumb-item text-muted"><a href="">科幻</a></li>
+      <li class="breadcrumb-item text-muted">末日霸权</li>
+    </ul>
+
+
+    <div class="left">
+      
+      <img style="margin-right:10px;" src="images/detail/morbaquan.png" alt="">
+      <div class="leftright">
+        <h3>末日霸权</h3>
+        <div class="bq">
+          <span style="color:#fff;background-color: green;">连载中</span>
+          <span style="color:#fff;background-color: red;">科幻游戏</span>
+          <span>守护</span>
+          <span>杀伐</span>
+          <span>周密布局</span>
+          <span>镇压一切</span>
+        </div>
+        <div class="tj">
+          <span class="text-muted">作者</span><h5 styel="color:#000;">梦里银河</h5>&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="text-muted">字数</span><h5 styel="color:#000;">269.4万</h5>
+        </div>
+        <p>因守护而兴杀伐，因杀伐而衍霸权！</p>
+        <a class="btn btn-danger m-1">开始阅读</a>
+        <a class="btn btn-success m-1">加入书架</a>
+        <a class="btn btn-info m-1">全部目录</a>
+      </div>
+    </div>  -->
+</div>
+<script src="js/ajax.js"></script>
+    <script>
+      var $value='';
+	var s_a=document.getElementById('s_a');
+	 $("#search>a").click(function(){
+                $value=$(":text").val().trim();
+			   console.log($value);
+			   s_a.setAttribute('href','search.html?tname='+encodeURI($value));
+				console.log(s_a);
+            })
+            //高级功能：
+            //在文本框中一边输入，一边查询结果
+            $(":text").on("input",function(){
+               $("#search>a").click();
+            })
+            //按回车也能查找！
+            $(":text").keyup(function(e){
+               if(e.keyCode==13){//回车
+                   $("#search>a").click();
+               }
+            })
+
+      window.onload=mulu;
+    </script>
+    <script src="js/tuichu.js"></script>
+</body>
+</html>

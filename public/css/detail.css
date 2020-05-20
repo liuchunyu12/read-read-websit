@@ -1,0 +1,37 @@
+
+.left{
+  width:923px;
+  height:229px;
+  margin-left:50px;
+  display:flex;
+}
+.left>img{
+  height:100%;
+}
+
+.leftright{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.bq{
+  display:flex;
+}
+.bq span{
+  border:1px solid #aaa;
+  padding:4px;
+  color:#aaa;
+  margin:5px;
+  border-radius:5px;
+}
+.tj{
+  display:flex;
+}
+.right{
+  width:237px;
+  height:293px;
+  background:rgba(0,0,0,0.2);
+  color:#aaa;
+  display:flex;
+  flex-direction: column;
+}

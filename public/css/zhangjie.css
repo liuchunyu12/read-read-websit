@@ -1,0 +1,22 @@
+body{
+    background:rgb(167, 150, 150);
+}
+.container{
+    width:900px;
+    margin:0 auto;
+    background:rgb(145, 248, 135);
+    padding:50px;
+}
+h1{
+    text-align:center;
+}
+#nr{
+    word-wrap:break-word;/*自动换行*/
+    white-space: pre-wrap;/*让div中带有换行符的文本也能换行显示*/
+    font-size:24px;
+    color:#000;
+}
+a{
+    margin-left:20px;
+    margin-top:40px;
+}

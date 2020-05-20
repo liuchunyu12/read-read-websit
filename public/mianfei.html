@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+	<head>
+		<title>免费</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/popper.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="css/header.css"/>
+        <link rel="stylesheet" href="css/shuku.css"/>
+	</head>
+	<body>
+        <div id="header">
+			<div id="header-a" class="text-muted">
+                <a href="02_login.html">登录</a>|<a href="01_reg.html">注册</a>
+                <a href="back_login.html">后台登录</a>
+			</div>
+		</div>
+
+
+
+	<div id="header-search">
+		<div id="title">
+			<span>读</span>
+		</div>
+		<div id="search">
+		
+			<input id="name" type="text" placeholder="雪中悍刀行">
+			<a class="btn btn-danger" id="s_a"  href="">搜索</a>
+		
+	</div>
+		
+	</div>
+
+
+	<div id="header-daohang">
+		<div id="zhu">
+
+			<div id="zhu-daohang">
+				<ul>
+					<li><a href="index.html">首页</a></li>
+					<li><a href="shuku.html">书库</a></li>
+					<li><a href="wanben.html">完本</a></li>
+					<li><a href="mianfei.html">免费</a></li>
+
+				</ul>
+			</div>
+
+
+		</div>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item"><a data-toggle="tab" id="Na" class="nav-link" href="#tab1">男生频道</a></li>
+        <li class="nav-item"><a data-toggle="tab" id="Nv" class="nav-link" href="#tab2">女生频道</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="tab1" class="tab-pane">
+            <table id="mul1">
+                
+                <!-- <div class="items">
+                     <div class="item">
+                         <div class="left">
+                             <img src=""/>
+                             <div class="info">
+                                 <h3>寂坟</h3>
+                                 <div class="info-bq">
+                                     <span>君弈臣 | 科幻游戏 | 连载中 </span>
+                                 </div>
+                                 <span>好像水手的故事，在尘世中活着，</span>
+                             </div>
+                         </div>
+                         <div class="right">
+                             <img src=""/>
+                             <div class="info">
+                                 <h3>帝道独尊</h3>
+                                 <div class="info-bq">
+                                     <span>一叶青天 | 奇幻玄幻 | 连载中 </span>
+                                 </div>
+                                 <span>天地初始，</span>
+                             </div>
+                         </div>
+                     </div>
+                 </div>  -->
+             </table>
+        </div>
+        <div id="tab2" class="tab-pane">
+            <table id="mul2">
+                <!-- <div class="items">
+                     <div class="item">
+                         <div class="left">
+                             <img src=""/>
+                             <div class="info">
+                                 <h3>寂坟</h3>
+                                 <div class="info-bq">
+                                     <span>君弈臣 | 科幻游戏 | 连载中 </span>
+                                 </div>
+                                 <span>好像水手的故事，在尘世中活着，</span>
+                             </div>
+                         </div>
+                         <div class="right">
+                             <img src=""/>
+                             <div class="info">
+                                 <h3>帝道独尊</h3>
+                                 <div class="info-bq">
+                                     <span>一叶青天 | 奇幻玄幻 | 连载中 </span>
+                                 </div>
+                                 <span>天地初始，</span>
+                             </div>
+                         </div>
+                     </div>
+                 </div>  -->
+             </table>
+        </div>
+    </div>
+    <script src="js/ajax.js"></script>
+    <script>
+        var $value='';
+	var s_a=document.getElementById('s_a');
+	 $("#search>a").click(function(){
+                $value=$(":text").val().trim();
+			   console.log($value);
+			   s_a.setAttribute('href','search.html?tname='+encodeURI($value));
+				console.log(s_a);
+            })
+            //高级功能：
+            //在文本框中一边输入，一边查询结果
+            $(":text").on("input",function(){
+               $("#search>a").click();
+            })
+            //按回车也能查找！
+            $(":text").keyup(function(e){
+               if(e.keyCode==13){//回车
+                   $("#search>a").click();
+               }
+            })
+
+        window.onload=mianfei;
+    </script>
+    <script src="js/tuichu.js"></script>
+</body>
+</html>

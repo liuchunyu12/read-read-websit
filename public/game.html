@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心鱼游戏</title>
+    <style>
+        /*1:最外层父元素*/
+        .all_bg{
+            width:800px;
+            height:600px;
+            margin:0 auto;
+            border:1px solid red;
+        }
+        /*2:画布的父元素：相对定位*/
+        .allcanvas{
+            position:absolute;
+            width:800px;
+            height:600px;
+        }
+        /*两块画布   1在前   2在后*/
+        #canvas1{
+            position:absolute;
+            z-index:1;
+        }
+        #canvas2{
+            position:absolute;
+            z-index:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="all_bg">
+        <div class="allcanvas">
+            <canvas id="canvas1" width="800" height="600"></canvas>
+            <canvas id="canvas2" width="800" height="600"></canvas>
+        </div>
+    </div>
+    <script src="js/commonFunctions.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

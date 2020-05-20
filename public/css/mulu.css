@@ -1,0 +1,16 @@
+.zt{
+    margin-top:50px;
+    text-align:center;
+}
+#zhangjie{
+    width:1200px;
+    margin:0 auto;
+    padding:10px;
+    border-bottom:1px dotted #000;
+    text-align:left;
+    
+}
+#zhangjie>a:nth-child(2){
+    margin-left:350px;
+    margin-right:350px;
+}
